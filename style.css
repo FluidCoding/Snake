@@ -1,9 +1,30 @@
+#gContainer{
+    color: gold;
+    margin-right: auto;
+    margin-left: auto;
+    width: 550px;
+}
+h2{  text-align: center;  }
 #cBoard{
-  margin-left: auto;
-  margin-right: auto;
   border: 1px solid silver;
 }
 body{
   background-color: black;
-  color: green;
+}
+#footContainer{
+  position: fixed;
+  bottom:0px;
+  text-align: center;
+  width: 100%;
+  overflow: hidden;
+}
+#footer{
+  overflow: hidden;
+  margin-left: auto;
+  margin-right: auto;
+  color: #6d6d6d;
+}
+#footer a{
+  color: #b38fa9;
+  text-decoration: none;
 }

@@ -1,6 +1,8 @@
 (()=>{
 // globs
 var canvas, ctx, gTimer;
+var GLOBAL_WIDTH = 10;
+var GLOBAL_HEIGHT = 10;
 // ENUM
 var D = {
   UP: 1,
@@ -13,8 +15,8 @@ var D = {
 var food = {
   x: 4,
   y: 4,
-  width: 5,
-  height: 5,
+  width: GLOBAL_WIDTH,
+  height: GLOBAL_HEIGHT,
   eat: function(){
     // console.log("nom nom");
     this.display = false;
@@ -39,8 +41,8 @@ var snakeSeg = function (_x,_y ) {
   return {
     x: _x,
     y: _y,
-    width: 5,
-    height: 5
+    width: GLOBAL_WIDTH,
+    height: GLOBAL_HEIGHT
   }
 }
 
