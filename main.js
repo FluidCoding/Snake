@@ -24,6 +24,7 @@ var food = {
 
 var snake ={
   curD : D.RIGHT,
+  nextD: D.RIGHT,
   body : [],
   addSeg: function (x,y){
     console.log("adding to ", x,y);
@@ -51,6 +52,7 @@ var snakeSeg = function (_x,_y ) {
 }
 var lLast = 0;
 function render(){
+  snake.curD = snake.nextD;
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   // Check for Food And Self Destruct
 
@@ -102,9 +104,40 @@ function render(){
   // Draw Snake
   ctx.fillStyle = "green";
   snake.body.forEach(function (seg,i){
+    console.log(seg.x, seg.y, i);
     ctx.fillRect(seg.x, seg.y, seg.height, seg.width);
   });
+
   lLast = 0;
+  if(lost()) lose();
+
+}
+
+function lose(){
+  clearInterval(gTimer);
+  var msg = "GAME OVER! YOUR SNEK LEVEL WAS " + snake.body.length + "!!!";
+  ctx.fillStyle = "red";
+  ctx.font = "18px monospace";
+  ctx.fillText(msg, canvas.width/2 - (msg.length*5), canvas.height/2 - 200);
+}
+
+function lost(){
+  // Out of Bounds
+  if(snake.body[0].x < 0 || snake.body[0].x >= canvas.width ||
+    snake.body[0].y < 0 || snake.body[0].y >= canvas.height )
+      return true;
+  // Ate Self
+  var ateSelf
+  snake.body.forEach((seg) =>{
+    var matches = 0;
+    snake.body.forEach((subseg) =>{
+        if(seg.x == subseg.x && seg.y == subseg.y)  matches++;
+    });
+    if(matches==2) { console.log(matches, "matches");  ateSelf = true; }
+  });
+  console.log(ateSelf);
+  if (ateSelf)  return true;
+  return false;
 }
 
 function tick(){
@@ -118,20 +151,20 @@ document.body.onload = function () {
   document.body.onkeydown = function(e){
     switch(e.keyCode){
       case 37: // Left
-        if(snake.curD !== D.RIGHT)  snake.curD = D.LEFT;
+        if(snake.curD !== D.RIGHT)  snake.nextD = D.LEFT;
       break;
       case 38:  // Up
-        if(snake.curD !== D.DOWN)  snake.curD = D.UP;
+        if(snake.curD !== D.DOWN)  snake.nextD = D.UP;
       break;
       case 39:  // Right
-        if(snake.curD !== D.LEFT)  snake.curD = D.RIGHT;
+        if(snake.curD !== D.LEFT)  snake.nextD = D.RIGHT;
       break;
       case 40:  // Down
-        if(snake.curD !== D.UP)  snake.curD = D.DOWN;
+        if(snake.curD !== D.UP)  snake.nextD = D.DOWN;
       break;
       case 0x20:
         if(gTimer !== null) {clearInterval(gTimer); gTimer = null;}
-        else                {gTimer = setInterval(tick, 150);     }
+        else                {gTimer = setInterval(tick, 100);     }
       break;
     }
   }
