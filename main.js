@@ -95,9 +95,12 @@ function render(){
     break;
   }
   // Draw Snake
-  ctx.fillStyle = "green";
   snake.body.forEach(function (seg,i){
     // console.log(seg.x, seg.y, i);
+    // ctx.fillStyle = ""
+//    range: 0x99 - 0x66
+  //  var numChanges = ;
+    ctx.fillStyle = "#00" + (  88 + (snake.body.length % (i+1)) % (0x99-0x66) ) + "00";
     ctx.fillRect(seg.x, seg.y, seg.height, seg.width);
   });
 
@@ -165,6 +168,6 @@ document.body.onload = function () {
   snake.addSeg(10,20);
   snake.addSeg(15,20);
 
-  gTimer = setInterval(tick, 150);
+  gTimer = setInterval(tick, 75);
 }
 })();
