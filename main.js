@@ -1,8 +1,7 @@
-function changeDir(e){
-  // console.log(e);
-}
+(()=>{
 // globs
 var canvas, ctx, gTimer;
+// ENUM
 var D = {
   UP: 1,
   RIGHT: 2,
@@ -10,6 +9,7 @@ var D = {
   LEFT: 4
 }
 
+// Food
 var food = {
   x: 4,
   y: 4,
@@ -22,6 +22,7 @@ var food = {
   display: false
 }
 
+// Snek
 var snake ={
   curD : D.RIGHT,
   nextD: D.RIGHT,
@@ -32,16 +33,8 @@ var snake ={
     this.body.push(seg);
   }
 }
-/*
-  Snake
-  body [
-    snakeseg,
-    snakeseg,
-    snakeseg
-  ]
-  tick -> move head shift segments into sibling
-      eat -> add one to pre shift end attach after shift
-*/
+
+// SnekSeg
 var snakeSeg = function (_x,_y ) {
   return {
     x: _x,
@@ -50,16 +43,18 @@ var snakeSeg = function (_x,_y ) {
     height: 5
   }
 }
+
+// Flag
 var lLast = 0;
+// TickRender
 function render(){
+  // Prevent a possiblity of quick direction pivots causing turnning back on self
   snake.curD = snake.nextD;
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   // Check for Food And Self Destruct
-
   if(!food.display){
     food.x = Math.random() * (canvas.width);
     food.y = Math.random() * (canvas.height);
-    // food.y = 75;
     food.display = true;
   }else{
     // Draw Food
@@ -78,15 +73,11 @@ function render(){
     }
   }
   // Move Snake Body, leave last segment if its new
-
   for(var i = snake.body.length-lLast-1; i>0; i--){
     snake.body[i].x = snake.body[i-1].x;
     snake.body[i].y = snake.body[i-1].y;
   }
-
-
   // Move Head
-
   switch(snake.curD){
     case D.LEFT:
       snake.body[0].x -= snake.body[0].width;
@@ -174,3 +165,4 @@ document.body.onload = function () {
 
   gTimer = setInterval(tick, 150);
 }
+})();
