@@ -118,16 +118,16 @@ document.body.onload = function () {
   document.body.onkeydown = function(e){
     switch(e.keyCode){
       case 37: // Left
-        snake.curD = D.LEFT;
+        if(snake.curD !== D.RIGHT)  snake.curD = D.LEFT;
       break;
       case 38:  // Up
-        snake.curD = D.UP;
+        if(snake.curD !== D.DOWN)  snake.curD = D.UP;
       break;
       case 39:  // Right
-        snake.curD = D.RIGHT;
+        if(snake.curD !== D.LEFT)  snake.curD = D.RIGHT;
       break;
       case 40:  // Down
-        snake.curD = D.DOWN;
+        if(snake.curD !== D.UP)  snake.curD = D.DOWN;
       break;
       case 0x20:
         if(gTimer !== null) {clearInterval(gTimer); gTimer = null;}
