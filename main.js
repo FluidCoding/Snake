@@ -1,5 +1,5 @@
 function changeDir(e){
-  console.log(e);
+  // console.log(e);
 }
 // globs
 var canvas, ctx, gTimer;
@@ -16,7 +16,7 @@ var food = {
   width: 5,
   height: 5,
   eat: function(){
-    console.log("nom nom");
+    // console.log("nom nom");
     this.display = false;
   },
   display: false
@@ -27,7 +27,7 @@ var snake ={
   nextD: D.RIGHT,
   body : [],
   addSeg: function (x,y){
-    console.log("adding to ", x,y);
+    // console.log("adding to ", x,y);
     var seg = snakeSeg(x,y);
     this.body.push(seg);
   }
@@ -58,8 +58,8 @@ function render(){
 
   if(!food.display){
     food.x = Math.random() * (canvas.width);
-  //  food.y = Math.random() * (canvas.height);
-    food.y = 75;
+    food.y = Math.random() * (canvas.height);
+    // food.y = 75;
     food.display = true;
   }else{
     // Draw Food
@@ -104,7 +104,7 @@ function render(){
   // Draw Snake
   ctx.fillStyle = "green";
   snake.body.forEach(function (seg,i){
-    console.log(seg.x, seg.y, i);
+    // console.log(seg.x, seg.y, i);
     ctx.fillRect(seg.x, seg.y, seg.height, seg.width);
   });
 
@@ -133,9 +133,9 @@ function lost(){
     snake.body.forEach((subseg) =>{
         if(seg.x == subseg.x && seg.y == subseg.y)  matches++;
     });
-    if(matches==2) { console.log(matches, "matches");  ateSelf = true; }
+    if(matches==2) { ateSelf = true; }
   });
-  console.log(ateSelf);
+  // console.log(ateSelf);
   if (ateSelf)  return true;
   return false;
 }
